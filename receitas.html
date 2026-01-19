@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receitas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/geral.css">
+  <link rel="stylesheet" href="./styles/receitas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="topbar">
+    <div class="nav-container">
+      <nav class="nav-links">
+        <a href="inicio.html">Home</a>
+        <a href="receitas.html">Receitas</a>
+        <a href="planeador.html">Planeamento de refeições</a>
+      </nav>
+      <a href="utilizador.html" class="user-circle">
+        <img id="user-profile-img" src="../imagens/logo.png" alt="Foto do utilizador">
+      </a>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="page-header">
+      <div class="page-title">
+        <h1>Receitas</h1>
+        <p>Encontra receitas por tempo, dificuldade e preferências.</p>
+      </div>
+      <form class="search" role="search">
+        <input type="search" placeholder="Pesquisar receitas..." />
+        <button type="submit">🔍</button>
+      </form>
+    </section>
+
+    <section class="filters">
+      <div class="filter-group">
+        <label>Tempo</label>
+        <select>
+          <option>Qualquer</option>
+          <option>Até 15 min</option>
+          <option>Até 30 min</option>
+          <option>Até 60 min</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Dificuldade</label>
+        <select>
+          <option>Qualquer</option>
+          <option>Fácil</option>
+          <option>Médio</option>
+          <option>Difícil</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Ordenar</label>
+        <select>
+          <option>Mais recentes</option>
+          <option>Mais rápidas</option>
+          <option>Mais popular</option>
+        </select>
+      </div>
+      <button class="btn-clear">Limpar</button>
+    </section>
+
+    <div class="cards"></div>
+  </main>
+
+  <!-- Botão para abrir o modal de adicionar receita -->
+  <div class="add-recipe-wrapper">
+    <button class="add-recipe-btn" id="btnOpenAddRecipeModal">
+      + Adicionar receita
+    </button>
+  </div>
+
+  <!-- MODAL: VER DETALHES DA RECEITA -->
+  <div class="modal fade" id="recipeDetailModal" tabindex="-1" aria-labelledby="recipeDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recipeDetailModalLabel">Detalhes da Receita</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <img id="modalRecipeImage" class="img-fluid rounded shadow-sm" 
+                 alt="Imagem da receita" 
+                 style="max-height: 280px; object-fit: cover;">
+          </div>
+
+          <h3 id="modalRecipeName" class="mb-3"></h3>
+
+          <div class="row g-3 mb-4 text-muted small">
+            <div class="col-4">
+              <strong>Tempo:</strong><br>
+              <span id="modalRecipeTime"></span> minutos
+            </div>
+            <div class="col-4">
+              <strong>Dificuldade:</strong><br>
+              <span id="modalRecipeDifficulty"></span>
+            </div>
+            <div class="col-4">
+              <strong>Tipo:</strong><br>
+              <span id="modalRecipeGenre"></span>
+            </div>
+          </div>
+
+          <h6 class="mt-4 mb-2 fw-bold">Preparação</h6>
+          <div id="modalRecipeInstructions" class="text-dark" style="white-space: pre-line; line-height: 1.6;"></div>
+
+          <div class="mt-4 pt-3 border-top small text-muted">
+            Por: <span id="modalRecipeChef"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADICIONAR NOVA RECEITA -->
+  <div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRecipeModalLabel">Adicionar Nova Receita</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addRecipeForm">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label for="recipeName" class="form-label">Nome da receita *</label>
+                <input type="text" class="form-control" id="recipeName" required>
+              </div>
+              <div class="col-md-4">
+                <label for="recipeTime" class="form-label">Tempo (min) *</label>
+                <input type="number" class="form-control" id="recipeTime" min="5" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="recipeDifficulty" class="form-label">Dificuldade *</label>
+                <select class="form-select" id="recipeDifficulty" required>
+                  <option value="">Escolha...</option>
+                  <option value="Fácil">Fácil</option>
+                  <option value="Médio">Médio</option>
+                  <option value="Difícil">Difícil</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="recipeGenre" class="form-label">Tipo / Género</label>
+                <input type="text" class="form-control" id="recipeGenre" placeholder="ex: Peixe, Carne, Sobremesa...">
+              </div>
+
+              <div class="col-12">
+                <label for="recipeChef" class="form-label">Chef / Autor</label>
+                <select class="form-select" id="recipeChef" required>
+                  <option value="">Selecione um chef...</option>
+                  <!-- Os chefs serão adicionados dinamicamente pelo JS -->
+                </select>
+                <small class="form-text text-muted mt-1">
+                  Não encontras o chef? Podes escrever um novo nome (opcional):
+                </small>
+                <input type="text" class="form-control mt-1" id="newChefName" placeholder="Novo chef (opcional)">
+              </div>
+
+              <div class="col-12">
+                <label for="recipeImage" class="form-label">URL da imagem (opcional)</label>
+                <input type="url" class="form-control" id="recipeImage" placeholder="./imagens/placeholder.jpg">
+              </div>
+
+              <div class="col-12">
+                <label for="recipeInstructions" class="form-label">Instruções *</label>
+                <textarea class="form-control" id="recipeInstructions" rows="5" required></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnSubmitRecipe">Adicionar Receita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/receitas.js"></script>
+  <script src="./js/profile.js"></script>
+</body>
+</html>

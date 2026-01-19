@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="./styles/geral.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="topbar">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="inicio.html">Home</a>
+                <a href="receitas.html">Receitas</a>
+                <a href="planeador.html">Planeamento de refeições</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="login-wrap">
+        <div class="login-card">
+            <h1>Criar Conta</h1>
+            <p class="login-sub">
+                Regista-te para guardar receitas e planear as tuas refeições.
+            </p>
+
+            <form class="login-form" id="register-form">
+                <div class="field">
+                    <label for="name">Nome</label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="O teu nome"
+                        required
+                    />
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="ex: maria@email.com"
+                        required
+                    />
+                </div>
+
+                <div class="field">
+                    <label for="password">Palavra-passe</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        minlength="6"
+                    />
+                </div>
+
+                <div class="field">
+                    <label for="confirm">Confirmar palavra-passe</label>
+                    <input
+                        id="confirm"
+                        name="confirm"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        minlength="6"
+                    />
+                </div>
+                <div class="field">
+                    <label for="profile-picture">Foto de perfil (opcional)</label>
+                    <input
+                        type="file"
+                        id="profile-picture"
+                        name="profile-picture"
+                        accept="image/*"
+                        class="form-control"
+                    />
+                    <small class="text-muted">Máximo 1.5MB. Formatos: jpg, png, gif</small>
+                </div>
+
+                <button class="btn" type="submit">Criar Conta</button>
+
+                <p class="switch">
+                    Já tens conta?
+                    <a class="link" href="login.html">Voltar ao login</a>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <script src="./js/storage.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/profile.js"></script>
+</body>
+</html>
