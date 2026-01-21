@@ -35,6 +35,10 @@ function logout() {
   window.location.href = "login.html";
 }
 
+function isAdmin() {
+  return currentUser && currentUser.email === "admin@gmail.com" && currentUser.password === "admin";
+}
+
 window.getFromStorage = getFromStorage;
 window.saveToStorage = saveToStorage;
 window.recipes = recipes;
@@ -42,3 +46,4 @@ window.users = users;
 window.currentUser = currentUser;
 window.isLoggedIn = isLoggedIn;
 window.logout = logout;
+window.isAdmin = isAdmin;

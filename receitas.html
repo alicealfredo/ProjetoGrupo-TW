@@ -70,14 +70,14 @@
     <div class="cards"></div>
   </main>
 
-  <!-- Botão para abrir o modal de adicionar receita -->
-  <div class="add-recipe-wrapper">
+  <!-- SO ADMIN  !!!!!! -->
+  <div class="add-recipe-wrapper" id="addRecipeWrapper" style="display: none;">
     <button class="add-recipe-btn" id="btnOpenAddRecipeModal">
       + Adicionar receita
     </button>
   </div>
 
-  <!-- MODAL: VER DETALHES DA RECEITA -->
+  
   <div class="modal fade" id="recipeDetailModal" tabindex="-1" aria-labelledby="recipeDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -118,12 +118,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-danger" id="btnDeleteRecipe" style="display: none;">Remover Receita</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: ADICIONAR NOVA RECEITA -->
+
   <div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -162,7 +163,7 @@
                 <label for="recipeChef" class="form-label">Chef / Autor</label>
                 <select class="form-select" id="recipeChef" required>
                   <option value="">Selecione um chef...</option>
-                  <!-- Os chefs serão adicionados dinamicamente pelo JS -->
+                  
                 </select>
                 <small class="form-text text-muted mt-1">
                   Não encontras o chef? Podes escrever um novo nome (opcional):
@@ -192,6 +193,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./js/storage.js"></script>
+  <script src="./js/admin-access.js"></script>
   <script src="./js/receitas.js"></script>
   <script src="./js/profile.js"></script>
 </body>

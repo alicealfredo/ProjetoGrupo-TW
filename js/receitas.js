@@ -124,12 +124,63 @@ function attachCardEvents() {
       img.src = recipe.image || "./imagens/placeholder.jpg";
       img.onerror = () => img.src = "./imagens/placeholder.jpg";
 
+      // Mostrar botão remover apenas para admin
+      let deleteBtn = document.getElementById("btnDeleteRecipe");
+      if (deleteBtn) {
+        deleteBtn.style.display = isAdmin() ? "inline-block" : "none";
+        deleteBtn.onclick = () => deleteRecipe(id);
+      }
+
       let modal = new bootstrap.Modal(document.getElementById("recipeDetailModal"));
       modal.show();
     });
   });
 }
 
+function deleteRecipe(recipeId) {
+  if (!isAdmin()) {
+    alert("Apenas administradores podem remover receitas!");
+    return;
+  }
+
+  let recipe = recipes.find(r => r.id === recipeId);
+  if (!recipe) return;
+
+  if (confirm(`Tem certeza que deseja remover a receita "${recipe.name}"?`)) {
+    recipes = recipes.filter(r => r.id !== recipeId);
+    saveToStorage("recipes", recipes);
+
+    
+    users.forEach(user => {
+      if (user.favorites) {
+        user.favorites = user.favorites.filter(id => id !== recipeId);
+      }
+      if (user.likedRecipes) {
+        user.likedRecipes = user.likedRecipes.filter(id => id !== recipeId);
+      }
+    });
+    saveToStorage("users", users);
+
+    
+    if (currentUser && currentUser.favorites) {
+      currentUser.favorites = currentUser.favorites.filter(id => id !== recipeId);
+    }
+    if (currentUser && currentUser.likedRecipes) {
+      currentUser.likedRecipes = currentUser.likedRecipes.filter(id => id !== recipeId);
+    }
+    saveToStorage("currentUser", currentUser);
+
+    bootstrap.Modal.getInstance(document.getElementById("recipeDetailModal"))?.hide();
+    alert(`Receita "${recipe.name}" removida com sucesso!`);
+    
+    // Recarregar a lista de receitas
+    let filtersSection = document.querySelector('.filters');
+    if (filtersSection) {
+      let event = new Event('change');
+      filtersSection.querySelectorAll('select')[0].dispatchEvent(event);
+    }
+  }
+}
 
 function populateChefSelect() {
   let select = document.getElementById("recipeChef");
@@ -150,6 +201,12 @@ function populateChefSelect() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  let addRecipeWrapper = document.getElementById("addRecipeWrapper");
+  if (addRecipeWrapper && isAdmin()) {
+    addRecipeWrapper.style.display = "block";
+  }
+
   let filtersSection = document.querySelector('.filters');
   if (!filtersSection) return;
 
