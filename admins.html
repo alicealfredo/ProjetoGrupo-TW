@@ -9,22 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- NAVBAR -->
-    <header class="topbar">
-        <div class="nav-container">
-            <nav class="nav-links">
-                <a href="inicio.html">Home</a>
-                <a href="receitas.html">Receitas</a>
-                <a href="planeador.html">Planeamento de refeições</a>
-                <a href="admins.html" class="admin-only">Gestão de Utilizadores</a>
-            </nav>
-            <a href="utilizador.html" class="user-circle">
-                <img id="user-profile-img" src="../imagens/logo.png" alt="Foto do utilizador">
-            </a>
-        </div>
-    </header>
+  <a href="#main-admins" class="visually-hidden">Conteúdo Principal</a> 
 
-    <main class="container my-5">
+    <!-- NAVBAR -->
+  <header class="topbar">
+      <div class="nav-container">
+        <nav class="nav-links">
+            <a href="inicio.html">Home</a>
+            <a href="receitas.html">Receitas</a>
+            <a href="planeador.html">Planeamento de refeições</a>
+        </nav>
+      </div>
+  </header>
+
+    <main class="container my-5" id="main-admins">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Gestão de Utilizadores</h1>
             <button class="btn btn-success" id="btnAddUser">
@@ -36,13 +34,15 @@
             <div class="card-body">
                 <div id="users-list" class="table-responsive">
                     <table class="table table-hover">
+                        <caption class="visually-hidden">Lista de utilizadores registados</caption>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Tipo</th>
-                                <th>Ações</th>
+                                <!-- scope="col" - definir a direção do cabeçalho com bootstrap para acessibilidade -->
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="users-table-body">
@@ -59,7 +59,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editUserModalLabel">Editar Utilizador</h5>
+                    <h2 style="font-size: 18px;" class="modal-title" id="editUserModalLabel">Editar Utilizador</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -99,7 +99,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Adicionar Novo Utilizador</h5>
+                    <h2 style="font-size:18px;" class="modal-title" id="addUserModalLabel">Adicionar Novo Utilizador</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
